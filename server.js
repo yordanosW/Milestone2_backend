@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 //routes
-app.use('/Food', foodRoutes)
+app.use('/foods', foodRoutes)
 
 // db connection
 mongoose.connect(process.env.MONGO_URI)

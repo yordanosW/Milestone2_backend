@@ -19,7 +19,14 @@ const FoodSchema = new mongoose.Schema({
         type: Number,
        required: true
     },
-    description: String
+    description: {
+        type: String,
+    },
+    section: {
+        type: String,
+        required: true,
+        enum: ['frozen','deli','fruit','vegtables','canned','breads','drinks','dairy']
+    }
 
 })
 

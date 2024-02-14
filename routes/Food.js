@@ -15,5 +15,21 @@ router.get('/:id', getFoodById)
 //create new Food
 router.post('/', createFood)
 
+//Delete Food
+
+
+//Update Food
+
+
+//get all reviews
+
+//get reviews by id
+
+//create new review and rating
+
+//update review and rating
+
+//delete review and rating
+
 
 module.exports = router
