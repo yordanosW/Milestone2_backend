@@ -1,33 +1,33 @@
-const Food = require('../models/Food')
+const Cart = require('../models/shoppingcart')
 
 
-async function getAllFoods(req,res){
+async function getAllCart(req,res){
     try {
-        const Foods = await Food.find()
-        res.json(Foods)
+        const Carts = await Cart.find()
+        res.json(Carts)
     } catch (error) {
         console.log('error fetching all foods', error)
         res.status(500).json({message: 'error fetching all foods'})
     }
 }
 
-async function getFoodById(req,res){
+async function getCartById(req,res){
     try {
         const { id } = req.params
-        const food = await Food.findById(id)
-        res.json(food)
+        const Cart = await Cart.findById(id)
+        res.json(Cart)
     } catch (error) {
         console.log('error fetching  food', error)
         res.status(500).json({message: 'error fetching food'})
     }
 }
 
-async function createFood(req, res) {
+async function createCart(req, res) {
 
     try {
          if(!req.body.profilePicture) req.body.profilePicture = undefined
-         const food = await new Food(req.body).save()
-         res.status(201).json(food)
+         const Cart = await new Food(req.body).save()
+         res.status(201).json(Cart)
     } catch (error) {
         console.log('error creating foods', error)
         res.status(500).json({message: 'error creating food'})
@@ -35,29 +35,28 @@ async function createFood(req, res) {
 
 }
 //update route
-async function UpdateFood(req, res) {
+async function UpdateCart(req, res) {
     try {
         const { id } = req.params;
-        const updateData = req.body;
-        const food = await Food.findByIdAndUpdate(id, updateData, {new: true});
-        res.json(food)
+        const updates = req.body;
+        const Cart = await Cart.findByIdAndUpdate(id, updates, {new: true});
+        res.json(Cart)
     } catch (error) {
-        console.log('error updating food', error)
-        res.status(500).json({message: 'error updating food'})
+        console.log('error fetching  food', error)
+        res.status(500).json({message: 'error fetching food'})
     }
 }
 
-
-async function findFoodsByName(req, res){
+async function findCartByName(req, res){
     try{
         const{searchString} = req.params
         const regex = new RegExp(searchString, 'i'); // 'i' for case-insensitive matching
 
-        const matchingFoods = await Food.find({ name: { $regex: regex } });
-        if(matchingFoods.length === 0){
+        const matchingCarts = await Cart.find({ name: { $regex: regex } });
+        if(matchingCarts.length === 0){
             return res.status(404).json({ message: 'No matching foods found' });
         }
-        res.json(matchingFoods)
+        res.json(matchingCarts)
     }catch(error){
         console.error('Error searching for foods by name', error);
         res.status(500).json({ message: 'Error searching for foods' });
@@ -66,24 +65,22 @@ async function findFoodsByName(req, res){
 
 
 //delete route by id
-async function DeleteFood(req,res){
+async function DeleteCart(req,res){
     try {
         const { id } = req.params
-        const food = await Food.findByIdAndDelete(id)
-        res.json(food)
+        const Cart = await Cart.findByIdAndDelete(id)
+        res.json(Cart)
     } catch (error) {
         console.log('error fetching  food', error)
         res.status(500).json({message: 'error fetching food'})
     }
 }
 
-
-
 module.exports = {
-    getAllFoods,
-    getFoodById,
-    createFood,
-    findFoodsByName,
-    UpdateFood,
-    DeleteFood,
+    getAllCart,
+    getCartById,
+    createCart,
+    findCartByName,
+    UpdateCart,
+    DeleteCart,
 }
